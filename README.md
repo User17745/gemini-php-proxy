@@ -38,7 +38,7 @@ This project is a PHP-based proxy for interacting with the Gemini API.
 
 2. Send POST requests to the endpoint:
    ```bash
-   curl -X POST -H "Content-Type: application/json" -d '{"prompt": "Your prompt here"}' http://localhost:8000/gemini_proxy.php
+   curl -X POST -H "Content-Type: application/json" -d '{"prompt": "Your prompt here"}' http://localhost:8000/index.php
    ```
 
 ## Logging
