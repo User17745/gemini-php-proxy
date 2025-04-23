@@ -1,3 +1,4 @@
 /vendor
 composer.lock
 gemini_log.csv
+.env
