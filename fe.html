@@ -4,30 +4,197 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prompt Submission</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
+    body {
+      background: linear-gradient(135deg, #1e1e2f, #2a2a3b);
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 100%;
+      padding: 20px;
+      background: #2e2e3e;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      background: linear-gradient(90deg, #ff7eb3, #ff758c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     #container {
       display: flex;
-      flex-direction: row;
+      flex: 1;
       gap: 20px;
+      overflow: hidden;
     }
+
     #codeView, #renderedView {
       flex: 1;
-      border: 1px solid #ccc;
-      padding: 10px;
+      border: 1px solid #444;
+      padding: 15px;
+      margin: 1rem 0.25rem;
+      border-radius: 8px;
+      background: #1e1e2f;
+      color: #dcdcdc;
       overflow: auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
-    #renderedView {
-      background-color: #f9f9f9;
+
+    #codeView {
+      position: relative;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #9cdcfe;
+    }
+
+    .copy-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #3a3a4a;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .copy-icon i {
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    #codeView:hover .copy-icon {
+      opacity: 1;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #1e1e2f;
+      border-top: 1px solid #444;
+      border-radius: 8px;
+      max-width: 1600px;
+      margin: auto;
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .input-box {
+      display: flex;
+      align-items: center;
+      background: #2e2e3e;
+      border-radius: 25px;
+      padding: 10px;
+      flex: 1;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: #ffffff;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .file-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: #3a3a4a;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .file-label:hover {
+      background: #4a4a5a;
+    }
+
+    .file-label i {
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+
+    button {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(90deg, #ff758c, #ff7eb3);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #ff7eb3, #ff758c);
+      box-shadow: 0 4px 15px rgba(255, 117, 140, 0.5);
+    }
+
+    button i {
+      color: #ffffff;
+      font-size: 1.2rem;
     }
   </style>
 </head>
 <body>
-  <input type="file" id="imageInput" accept="image/*" />
-  <input type="text" id="promptInput" placeholder="Say something..." />
-  <button onclick="submitPrompt()">Send</button>
-  <div id="container">
-    <pre id="codeView"></pre>
-    <div id="renderedView"></div>
+  <div class="wrapper">
+    <h1>KX Auto-DIY AI Lab</h1>
+    <div id="container">
+      <pre id="codeView">
+        <div class="copy-icon" onclick="copyToClipboard()">
+          <i class="fas fa-copy"></i>
+        </div>
+      </pre>
+      <div id="renderedView"></div>
+    </div>
+    <div class="input-container">
+      <div class="input-box">
+        <label for="imageInput" class="file-label">
+          <i class="fas fa-plus"></i>
+        </label>
+        <input type="file" id="imageInput" accept="image/*" />
+        <input type="text" id="promptInput" placeholder="Ask anything..." />
+      </div>
+      <button onclick="submitPrompt()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
   </div>
 
   <script>
@@ -89,6 +256,17 @@
         reader.onload = () => resolve(reader.result);
         reader.onerror = reject;
         reader.readAsDataURL(file);
+      });
+    }
+
+    function copyToClipboard() {
+      const codeView = document.getElementById('codeView');
+      const textToCopy = codeView.textContent || codeView.innerText;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Code copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
       });
     }
   </script>
