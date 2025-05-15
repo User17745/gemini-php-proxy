@@ -143,7 +143,10 @@ curl_close($ch);
 // Log request and response
 $sanitizedPayload = $payload;
 if (isset($sanitizedPayload['contents'][0]['parts'][0]['text'])) {
-    $sanitizedPayload['contents'][0]['parts'][0]['text'] = '[REDACTED]';
+    // Only redact the API key from the text, keeping the rest of the request
+    $text = $sanitizedPayload['contents'][0]['parts'][0]['text'];
+    $text = preg_replace('/apiKey=([^&\s]+)/', 'apiKey=[REDACTED]', $text);
+    $sanitizedPayload['contents'][0]['parts'][0]['text'] = $text;
 }
 
 $logData = [
@@ -151,7 +154,7 @@ $logData = [
     $_SERVER['REMOTE_ADDR'] ?? 'CLI',
     $_SERVER['REQUEST_METHOD'] ?? 'UNKNOWN',
     $_SERVER['HTTP_USER_AGENT'] ?? 'UNKNOWN',
-    '[REDACTED]', // Do not log the actual prompt
+    $text, // Do not log the actual prompt
     json_encode($images),
     $httpCode,
     $response
