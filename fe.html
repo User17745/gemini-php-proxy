@@ -159,6 +159,7 @@
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     button:hover {
@@ -169,6 +170,24 @@
     button i {
       color: #ffffff;
       font-size: 1.2rem;
+    }
+
+    .loading-icon {
+      display: none;
+      position: absolute;
+      top: 28%;
+      left: 27%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      color: #ffffff;
+    }
+
+    button.loading .loading-icon {
+      display: block;
+    }
+
+    button.loading i {
+      display: none;
     }
   </style>
 </head>
@@ -193,12 +212,14 @@
       </div>
       <button onclick="submitPrompt()">
         <i class="fas fa-paper-plane"></i>
+        <i class="fas fa-spinner fa-spin loading-icon"></i>
       </button>
     </div>
   </div>
 
   <script>
     async function submitPrompt() {
+      const button = document.querySelector('button');
       const prompt = document.getElementById('promptInput').value;
       const file = document.getElementById('imageInput').files[0];
 
@@ -207,6 +228,9 @@
         document.getElementById('renderedView').textContent = '';
         return;
       }
+
+      button.disabled = true;
+      button.classList.add('loading');
 
       const parts = [{ text: prompt.trim() }];
 
@@ -247,6 +271,9 @@
       } catch (error) {
         document.getElementById('codeView').textContent = `Error: ${error.message}`;
         document.getElementById('renderedView').textContent = '';
+      } finally {
+        button.disabled = false;
+        button.classList.remove('loading');
       }
     }
 
