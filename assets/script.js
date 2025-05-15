@@ -2,9 +2,10 @@ async function submitPrompt() {
     const button = document.querySelector('button');
     const prompt = document.getElementById('promptInput').value;
     const file = document.getElementById('imageInput').files[0];
-    const sectionType = document.getElementById('sectionType').value;
     const pageType = document.getElementById('pageType').value;
+    const sectionType = document.getElementById('sectionType').value;
     const language = document.getElementById('language').value;
+    const layoutDir = document.getElementById('layoutDir').value;
     const tone = document.getElementById('tone').value;
 
     if (!prompt || prompt.trim() === '') {
@@ -30,6 +31,7 @@ async function submitPrompt() {
         sectionType,
         pageType,
         language,
+        layoutDir,
         tone,
         images
     };

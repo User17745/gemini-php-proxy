@@ -52,7 +52,7 @@ if (!isset($input['prompt']) || !is_string($input['prompt']) || trim($input['pro
 $pageType = $input['pageType'] ?? 'product detail page';
 $sectionType = $input['sectionType'] ?? 'banner';
 $language = $input['language'] ?? 'English';
-$layoutDir = $input['layoutDir'] ?? 'LTR';
+$layoutDir = $input['layoutDir'] ?? 'Left-To-Right';
 $tone = $input['tone'] ?? 'clear, persuasive, and clean';
 $userRequest = trim($input['prompt']);
 
