@@ -2,6 +2,10 @@ async function submitPrompt() {
     const button = document.querySelector('button');
     const prompt = document.getElementById('promptInput').value;
     const file = document.getElementById('imageInput').files[0];
+    const sectionType = document.getElementById('sectionType').value;
+    const pageType = document.getElementById('pageType').value;
+    const language = document.getElementById('language').value;
+    const tone = document.getElementById('tone').value;
 
     if (!prompt || prompt.trim() === '') {
         document.getElementById('codeView').textContent = 'Prompt is required and must be a non-empty string.';
@@ -12,25 +16,26 @@ async function submitPrompt() {
     button.disabled = true;
     button.classList.add('loading');
 
-    const parts = [{ text: prompt.trim() }];
-
+    const images = [];
     if (file) {
         const base64 = await toBase64(file);
-        parts.push({
-            inlineData: {
-                mimeType: file.type,
-                data: base64.split(',')[1] // remove "data:image/jpeg;base64,"
-            }
+        images.push({
+            mimeType: file.type,
+            data: base64.split(',')[1] // remove "data:image/jpeg;base64,"
         });
     }
 
     const payload = {
         prompt: prompt.trim(),
-        contents: parts
+        sectionType,
+        pageType,
+        language,
+        tone,
+        images
     };
 
     try {
-        const res = await fetch('https://abhiai.greenhonchos.in/index.php', {
+        const res = await fetch('widget-gen.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

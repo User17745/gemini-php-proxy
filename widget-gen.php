@@ -49,9 +49,10 @@ if (!isset($input['prompt']) || !is_string($input['prompt']) || trim($input['pro
 }
 
 // Extract configuration parameters with defaults
-$sectionType = $input['sectionType'] ?? 'banner';
 $pageType = $input['pageType'] ?? 'product detail page';
+$sectionType = $input['sectionType'] ?? 'banner';
 $language = $input['language'] ?? 'English';
+$layoutDir = $input['layoutDir'] ?? 'LTR';
 $tone = $input['tone'] ?? 'clear, persuasive, and clean';
 $userRequest = trim($input['prompt']);
 
@@ -61,7 +62,7 @@ Your job is to help generate a single responsive page section that fits seamless
 
 Critial Details about the div that you have to provide the code for:
  - This is a(n) \"{$sectionType}\" section on a \"{$pageType}\"
- - Write content copy in \"{$language}\", with a \"{$tone}\" tone.
+ - Write content copy in \"{$language}\", with \"{$layoutDir}\" layout with a \"{$tone}\" tone.
  
  Instructions:
  - Build for modern browsers and optimized for mobile-first layout
@@ -71,6 +72,8 @@ Critial Details about the div that you have to provide the code for:
  - Do NOT include <html>, <head>, <section> or global layout containers — only the div block
  - Avoid interactive elements that require JavaScript unless explicitly requested
  - Optimize markup for Core Web Vitals: minimal nesting, small DOM footprint, mobile-first layout
+ - Use https://placehold.co/ for placeholder images wherever needed.
+ - Use https://avatar.iran.liara.run/public/boy or https://avatar.iran.liara.run/public/girl to get placeholder avatar images wherever needed as per your best judgetment.
  - IMPORTANT: Assume no pre-exiting UI framework or styling (bootstrap tailwind, etc.).
  - IMPORTANT: Write your on styling css code in it's own <style> tag covering both desktop & mobile responsiveness.
  - IMPORTANT: Add a 4 digit random number to any css class that you make so that it does not clash with any existing styles on the page.

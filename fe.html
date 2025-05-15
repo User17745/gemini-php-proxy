@@ -27,6 +27,40 @@
           <i class="fas fa-plus"></i>
         </label>
         <input type="file" id="imageInput" accept="image/*" />
+        <select id="pageType" class="select-input">
+          <option value="product detail page">Product Detail Page</option>
+          <option value="category page">Category Page</option>
+          <option value="home page">Home Page</option>
+          <option value="about page">About Page</option>
+          <option value="contact page">Contact Page</option>
+        </select>
+        <select id="sectionType" class="select-input">
+          <option value="banner">Banner</option>
+          <option value="hero">Hero Section</option>
+          <option value="features">Features</option>
+          <option value="testimonials">Testimonials</option>
+          <option value="cta">Call to Action</option>
+          <option value="footer">Footer</option>
+        </select>
+        <select id="language" class="select-input">
+          <option value="English">English</option>
+          <option value="Arabic">Arabic</option>
+          <option value="Spanish">Spanish</option>
+          <option value="French">French</option>
+          <option value="German">German</option>
+          <option value="Italian">Italian</option>
+        </select>
+        <select id="layoutDir" class="select-input">
+          <option value="LTR">LTR</option>
+          <option value="RTL">RTL</option>
+        </select>
+        <select id="tone" class="select-input">
+          <option value="clear, persuasive, and clean">Clear & Persuasive</option>
+          <option value="professional and formal">Professional & Formal</option>
+          <option value="friendly and casual">Friendly & Casual</option>
+          <option value="luxury and elegant">Luxury & Elegant</option>
+          <option value="bold and energetic">Bold & Energetic</option>
+        </select>
         <input type="text" id="promptInput" placeholder="Describe your widget requirement..." />
       </div>
       <button onclick="submitPrompt()">
