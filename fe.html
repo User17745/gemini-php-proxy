@@ -1,60 +1,96 @@
-<input type="file" id="imageInput" accept="image/*" />
-<input type="text" id="promptInput" placeholder="Say something..." />
-<button onclick="submitPrompt()">Send</button>
-<pre id="response"></pre>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Submission</title>
+  <style>
+    #container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+    #codeView, #renderedView {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow: auto;
+    }
+    #renderedView {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <input type="file" id="imageInput" accept="image/*" />
+  <input type="text" id="promptInput" placeholder="Say something..." />
+  <button onclick="submitPrompt()">Send</button>
+  <div id="container">
+    <pre id="codeView"></pre>
+    <div id="renderedView"></div>
+  </div>
 
-<script>
-async function submitPrompt() {
-  const prompt = document.getElementById('promptInput').value;
-  const file = document.getElementById('imageInput').files[0];
+  <script>
+    async function submitPrompt() {
+      const prompt = document.getElementById('promptInput').value;
+      const file = document.getElementById('imageInput').files[0];
 
-  if (!prompt || prompt.trim() === '') {
-    document.getElementById('response').textContent = 'Prompt is required and must be a non-empty string.';
-    return;
-  }
-
-  const parts = [{ text: prompt.trim() }];
-
-  if (file) {
-    const base64 = await toBase64(file);
-    parts.push({
-      inlineData: {
-        mimeType: file.type,
-        data: base64.split(',')[1] // remove "data:image/jpeg;base64,"
+      if (!prompt || prompt.trim() === '') {
+        document.getElementById('codeView').textContent = 'Prompt is required and must be a non-empty string.';
+        document.getElementById('renderedView').textContent = '';
+        return;
       }
-    });
-  }
 
-  const payload = {
-    prompt: prompt.trim(),
-    contents: parts
-  };
+      const parts = [{ text: prompt.trim() }];
 
-  try {
-    const res = await fetch('https://abhiai.greenhonchos.in/index.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+      if (file) {
+        const base64 = await toBase64(file);
+        parts.push({
+          inlineData: {
+            mimeType: file.type,
+            data: base64.split(',')[1] // remove "data:image/jpeg;base64,"
+          }
+        });
+      }
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      const payload = {
+        prompt: prompt.trim(),
+        contents: parts
+      };
+
+      try {
+        const res = await fetch('https://abhiai.greenhonchos.in/index.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        let responseText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response.';
+
+        // Remove code block markers (e.g., ```html, ```js, etc.)
+        responseText = responseText.replace(/```[a-z]*\n?/g, '').replace(/```/g, '');
+
+        document.getElementById('codeView').textContent = responseText;
+        document.getElementById('renderedView').innerHTML = responseText;
+      } catch (error) {
+        document.getElementById('codeView').textContent = `Error: ${error.message}`;
+        document.getElementById('renderedView').textContent = '';
+      }
     }
 
-    const data = await res.json();
-    document.getElementById('response').textContent =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response.';
-  } catch (error) {
-    document.getElementById('response').textContent = `Error: ${error.message}`;
-  }
-}
-
-function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-</script>
+    function toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+</body>
+</html>
