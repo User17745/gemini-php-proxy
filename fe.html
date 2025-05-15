@@ -10,7 +10,7 @@
 
     body {
       font-family: 'Montserrat', 'Inter var', sans-serif;
-      background: linear-gradient(135deg, #e3e3f0, #f9daff);
+      background: linear-gradient(135deg, #585858, #171717);
       color: #ffffff;
       margin: 0;
       padding: 0;
@@ -159,6 +159,14 @@
     .file-label i {
       color: #ffffff;
       font-size: 1.2rem;
+    }
+
+    .file-label.selected {
+      background: #4caf50;
+    }
+
+    .file-label.selected i {
+      color: #ffffff;
     }
 
     button {
@@ -312,6 +320,22 @@
         console.error('Failed to copy: ', err);
       });
     }
+
+    document.getElementById('imageInput').addEventListener('change', function () {
+      const fileLabel = document.querySelector('.file-label');
+      if (this.files && this.files.length > 0) {
+        fileLabel.classList.add('selected');
+      } else {
+        fileLabel.classList.remove('selected');
+      }
+    });
+
+    document.getElementById('promptInput').addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitPrompt();
+      }
+    });
   </script>
 </body>
 </html>
