@@ -15,6 +15,7 @@
       font-family: 'Montserrat', 'Inter var', sans-serif;
       text-align: center;
       background: linear-gradient(90deg, #000000, #1f0921);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
