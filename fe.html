@@ -6,15 +6,25 @@
   <title>Prompt Submission</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
     body {
-      background: linear-gradient(135deg, #1e1e2f, #2a2a3b);
+      font-family: 'Montserrat', 'Inter var', sans-serif;
+      background: linear-gradient(135deg, #e3e3f0, #f9daff);
       color: #ffffff;
-      font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
+    }
+
+    h1 {
+      font-family: 'Montserrat', 'Inter var', sans-serif;
+      text-align: center;
+      background: linear-gradient(90deg, #000000, #1f0921);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .wrapper {
@@ -24,16 +34,8 @@
       justify-content: space-between;
       max-width: 100%;
       padding: 20px;
-      background: #2e2e3e;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    h1 {
-      text-align: center;
-      background: linear-gradient(90deg, #ff7eb3, #ff758c);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     #container {
@@ -121,6 +123,7 @@
       color: #ffffff;
       outline: none;
       font-size: 1rem;
+      font-family: 'Inter', sans-serif;
     }
 
     input[type="file"] {
@@ -160,6 +163,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
+      font-family: 'Inter', sans-serif;
     }
 
     button:hover {
@@ -208,7 +212,7 @@
           <i class="fas fa-plus"></i>
         </label>
         <input type="file" id="imageInput" accept="image/*" />
-        <input type="text" id="promptInput" placeholder="Ask anything..." />
+        <input type="text" id="promptInput" placeholder="Describe your widget requirement..." />
       </div>
       <button onclick="submitPrompt()">
         <i class="fas fa-paper-plane"></i>
