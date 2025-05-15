@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Montserrat', 'Inter var', sans-serif;
+      background: linear-gradient(135deg, #585858, #171717);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-family: 'Montserrat', 'Inter var', sans-serif;
+      text-align: center;
+      background: linear-gradient(90deg, #000000, #1f0921);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 100%;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    #container {
+      display: flex;
+      flex: 1;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    #codeView {
+      flex: 1;
+      position: relative;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #9cdcfe;
+      background: #1e1e2f;
+      padding: 15px;
+      border-radius: 8px;
+      overflow: auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .copy-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #3a3a4a;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .copy-icon i {
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    #codeView:hover .copy-icon {
+      opacity: 1;
+    }
+
+    #renderedViewContainer {
+      flex: 1;
+      border: 1px solid #444;
+      border-radius: 8px;
+      margin: 1rem 0.25rem;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    #renderedView {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #1e1e2f;
+      border-top: 1px solid #444;
+      border-radius: 8px;
+      max-width: 1600px;
+      margin: auto;
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .input-box {
+      display: flex;
+      align-items: center;
+      background: #2e2e3e;
+      border-radius: 25px;
+      padding: 10px;
+      flex: 1;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: #ffffff;
+      outline: none;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .file-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: #3a3a4a;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .file-label:hover {
+      background: #4a4a5a;
+    }
+
+    .file-label i {
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+
+    .file-label.selected {
+      background: #4caf50;
+    }
+
+    .file-label.selected i {
+      color: #ffffff;
+    }
+
+    button {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(90deg, #ff758c, #ff7eb3);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #ff7eb3, #ff758c);
+      box-shadow: 0 4px 15px rgba(255, 117, 140, 0.5);
+    }
+
+    button i {
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+
+    .loading-icon {
+      display: none;
+      position: absolute;
+      top: 28%;
+      left: 27%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      color: #ffffff;
+    }
+
+    button.loading .loading-icon {
+      display: block;
+    }
+
+    button.loading i {
+      display: none;
+    }
