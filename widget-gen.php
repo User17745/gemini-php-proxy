@@ -78,9 +78,10 @@ Instructions:
  9. Use https://avatar.iran.liara.run/public/boy or https://avatar.iran.liara.run/public/girl to get placeholder avatar images wherever needed as per your best judgetment.
  10. Make the mobile responsive version based on best practices.
  11. Try to follow the desing queues of the shared screenshot as closely as possible.
- 12. IMPORTANT: Assume no pre-exiting UI framework or styling (bootstrap tailwind, etc.).
- 13. IMPORTANT: Write your on styling css code in it's own <style> tag covering both desktop & mobile responsiveness.
- 14. IMPORTANT: Add a 4 digit random number to any css class that you make so that it does not clash with any existing styles on the page.
+ 12. Write your own content copy, do not replicate from  the attached screenshot.
+ 13. IMPORTANT: Assume no pre-exiting UI framework or styling (bootstrap tailwind, etc.).
+ 14. IMPORTANT: Write your on styling css code in it's own <style> tag covering both desktop & mobile responsiveness.
+ 15. IMPORTANT: Add a 4 digit random number to any css class that you make so that it does not clash with any existing styles on the page.
 
 Once you are done with the code, check carefully if you have followed all the Critial Details & Instructions, only then share the code, else re-work and share.
 
